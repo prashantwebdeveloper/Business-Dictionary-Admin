@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom';
 
-import User from "../../assets/Images/user.jpg";
+import User from "../../assets/images/user.jpg";
 
 const Header = ({ mobileToggle, setMobileToggle, handleLogout }) => {
 

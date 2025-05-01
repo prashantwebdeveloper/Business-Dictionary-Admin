@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { FaEye, FaFilePdf } from 'react-icons/fa6';
 import { IoDocumentText, IoDocumentTextOutline } from "react-icons/io5";
 
-import UserImage from "../../assets/Images/user.jpg";
+import UserImage from "../../assets/images/user.jpg";
 
 import Delete from '../../components/modal/delete/Delete';
 

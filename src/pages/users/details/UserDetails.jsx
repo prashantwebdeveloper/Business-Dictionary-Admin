@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa6';
 
 import BackIcon from "../../../assets/images/back.png";
-import UserImage from "../../../assets/Images/user.jpg";
+import UserImage from "../../../assets/images/user.jpg";
 
 import { GetUserDetailsFirebase } from '../../../firebase/services/user/UserServices';
 import { toast } from 'react-toastify';
