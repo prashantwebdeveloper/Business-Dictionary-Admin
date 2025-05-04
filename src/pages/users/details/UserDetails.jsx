@@ -146,7 +146,7 @@ const UserDetails = () => {
                                             zIndex: "999"
                                         }}
                                     >
-                                        {showpassword ? <FaRegEye size={20} /> : <FaRegEyeSlash size={20} />}
+                                        {showpassword ? <FaRegEyeSlash size={20} /> : <FaRegEye size={20} />}
                                     </span>
                                 </div>
                             </div>

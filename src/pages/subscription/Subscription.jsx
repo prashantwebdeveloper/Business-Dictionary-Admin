@@ -5,11 +5,15 @@ import { FaEye } from 'react-icons/fa6';
 
 import Delete from '../../components/modal/delete/Delete';
 
-import { GetSubscriptionFirebase } from '../../firebase/services/subscription/SubscriptionServices';
+import { DeleteSubscriptionFirebase, GetSubscriptionFirebase } from '../../firebase/services/subscription/SubscriptionServices';
 import { toast } from 'react-toastify';
 
 const modal = {
     deleteSubscription: false,
+}
+
+const initialState = {
+    id: null
 }
 
 const Subscription = () => {
@@ -23,7 +27,7 @@ const Subscription = () => {
     const [search, setSearch] = useState("");
 
     const [isDeleteLoading, setIsDeleteLoading] = useState(false);
-    const [deleteId, setDeleteId] = useState(null);
+    const [deleteSubscription, setDeleteSubscription] = useState(initialState);
 
     // Pagination
     const [currentPage, setCurrentPage] = useState(1);
@@ -47,12 +51,29 @@ const Subscription = () => {
 
         } catch (err) {
             console.error("Error-Res-Subscription", err);
-
-            // if (err.response?.status === 500) {
-            //     setError(err.response.data.message);
-            // }
         } finally {
             setLoader(false);
+        }
+    }
+
+    const handleDelete = async () => {
+        setIsDeleteLoading(true);
+
+        try {
+            const res = await DeleteSubscriptionFirebase(deleteSubscription.id);
+            console.log("Res-Delete-Subscription++", res);
+
+            setDeleteSubscription(initialState);
+            handleClose();
+
+            toast.success("subscription deleted successfully");
+            GetSubscriptionList();
+        }
+        catch (err) {
+            console.error("Error-Delete-Subscription", err);
+        }
+        finally {
+            setIsDeleteLoading(false);
         }
     }
 
@@ -80,10 +101,12 @@ const Subscription = () => {
             (
                 <div className="d-flex align-items-center">
                     <button type="button" className="btn btn-sm btn-square btn-neutral text-danger-hover ri-delete-bin-line"
-                    // onClick={() => {
-                    //     setModalShow({ ...modalShow, deleteSubscription: true });
-                    //     setDeleteId(row?.id);
-                    // }}
+                        onClick={() => {
+                            setModalShow({ ...modalShow, deleteSubscription: true });
+                            setDeleteSubscription({
+                                id: row?.id,
+                            });
+                        }}
                     ></button>
                 </div>
             ),
@@ -92,14 +115,14 @@ const Subscription = () => {
     ];
 
 
-    const filterSubscription = subscriptionList.filter((i) => {
+    const filterSubscription = subscriptionList?.filter((i) => {
         const searchstr = `${i.email} ${i.createdAt}`.toLowerCase();
 
         return searchstr.includes(search.toLowerCase());
     });
 
     const startIndex = (currentPage - 1) * perPage;
-    const currentPageData = filterSubscription.slice(startIndex, startIndex + perPage);
+    const currentPageData = filterSubscription?.slice(startIndex, startIndex + perPage);
 
     const handlePageChange = (page) => {
         setCurrentPage(page);
@@ -156,7 +179,7 @@ const Subscription = () => {
                                             columns={columns}
                                             currentPageData={currentPageData}
                                             loader={loader}
-                                            filterDataLength={filterSubscription.length || 0}
+                                            filterDataLength={filterSubscription?.length || 0}
                                             perPage={perPage}
                                             handleRowsPerPageChange={handleRowsPerPageChange}
                                             handlePageChange={handlePageChange}
@@ -171,7 +194,7 @@ const Subscription = () => {
 
 
             { /* ----- Delete-Subscription Modal ----- */}
-            {/* <Delete show={modalShow.deleteSubscription} handleClose={handleClose} isDeleteLoading={isDeleteLoading} handleDelete={handleDelete} role="Subscription" /> */}
+            <Delete show={modalShow.deleteSubscription} handleClose={handleClose} isDeleteLoading={isDeleteLoading} handleDelete={handleDelete} role="Subscription" />
 
         </>
     );

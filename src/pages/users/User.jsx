@@ -84,10 +84,6 @@ const User = () => {
         }
         catch (err) {
             console.error("Error-Delete-Users", err);
-
-            // if (err.response?.status === 500) {
-            //     toast.error(err.response.data.message);
-            // }
         }
         finally {
             setIsDeleteLoading(false);
@@ -138,9 +134,9 @@ const User = () => {
                             }}
                         >
                             {isVisible ?
-                                <FaRegEye size={20} style={{ color: 'rgb(108, 117, 125)' }} />
-                                :
                                 <FaRegEyeSlash size={20} style={{ color: 'rgb(108, 117, 125)' }} />
+                                :
+                                <FaRegEye size={20} style={{ color: 'rgb(108, 117, 125)' }} />
                             }
                         </button>
                     </div>

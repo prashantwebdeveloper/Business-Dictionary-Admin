@@ -110,8 +110,9 @@
 .sidebar .sidebar-layout .sidebar-header .menu-title {
     font-size: 25px;
     font-weight: 600;
-    margin-left: -15px;
     color: #FFFFFF;
+    margin-left: -25px;
+    margin-bottom: -15px
 }
 
 .sidebar.collapsed .sidebar-layout .sidebar-header .menu-title {
@@ -123,7 +124,7 @@
 }
 
 .sidebar.collapsed .sidebar-layout .sidebar-header .pro-sidebar-logo .logo-img {
-    width: 100% !important;
+    width: 90% !important;
 }
 
 .sidebar .sidebar-layout .sidebar-header>span {

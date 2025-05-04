@@ -19,12 +19,6 @@ import ViewCategory from './pages/category/view/ViewCategory';
 // Subscription
 import Subscription from './pages/subscription/Subscription';
 
-// Notification
-import Notification from './pages/notification/Notification';
-import CreateNotification from './pages/notification/create/CreateNotification';
-import EditNotification from './pages/notification/edit/EditNotification';
-import ViewNotification from './pages/notification/view/ViewNotification';
-
 function App() {
     return (
         <>
@@ -49,12 +43,6 @@ function App() {
 
                     {/* Subscription */}
                     <Route path='/admin/subscription' element={<Subscription />} />
-
-                    {/* Notification */}
-                    <Route path='/admin/notification' element={<Notification />} />
-                    <Route path='/admin/notification/create' element={<CreateNotification />} />
-                    <Route path='/admin/notification/edit/:id' element={<EditNotification />} />
-                    <Route path='/admin/notification/view/:id' element={<ViewNotification />} />
                 </Route>
             </Routes>
 

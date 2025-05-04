@@ -3,7 +3,6 @@ import { Link, NavLink, useLocation } from 'react-router-dom';
 
 import { SidebarContent } from '../../constants/Data';
 
-import Logo from "../../assets/images/logo.png";
 // import Logo from "../../assets/images/logo-2.svg";
 import SidebarLogo from "../../assets/images/sidebar-logo.png";
 
@@ -29,7 +28,7 @@ const Sidebar = ({ mobileToggle, setMobileToggle, handleLogout }) => {
                         <img src={`${sidebarToggle ? SidebarLogo : SidebarLogo}`} alt="logo" className={`${sidebarToggle ? "logo-img" : "full-fluid"}`} width={80} />
                     </Link>
 
-                    <span className="menu-title">Business</span>
+                    <span className="menu-title">ListIndia</span>
                 </div>
 
                 <nav className="menu open-current-submenu">

@@ -72,10 +72,6 @@ const Category = () => {
         }
         catch (err) {
             console.error("Error-Delete-Category", err);
-
-            // if (err.response?.status === 500) {
-            //     toast.error(err.response.data.message);
-            // }
         }
         finally {
             setIsDeleteLoading(false);

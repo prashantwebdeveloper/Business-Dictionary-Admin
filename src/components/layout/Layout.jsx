@@ -14,14 +14,6 @@ export const AuthLayout = () => {
     const navigate = useNavigate();
     const token = localStorage.getItem("business-admin-token");
 
-
-    // useEffect(() => {
-    //     if (token) {
-    //         navigate("/admin/dashboard");
-    //         // navigate(-1);
-    //     }
-    // }, [token]);
-
     const { currentUser } = useAuth();
 
     useEffect(() => {
@@ -46,12 +38,6 @@ export const DefaultLayout = () => {
     const token = localStorage.getItem("business-admin-token");
     const { currentUser } = useAuth();
 
-    // useEffect(() => {
-    //     if (!token) {
-    //         navigate("/");
-    //     }
-    // }, [token]);
-
     useEffect(() => {
         if (!currentUser) {
             navigate("/");
@@ -75,14 +61,6 @@ export const DefaultLayout = () => {
 
     const confirmLogout = async () => {
         setIsLogoutLoading(true);
-
-        // setTimeout(() => {
-        //     localStorage.clear();
-
-        //     navigate("/");
-
-        //     setIsLogoutLoading(false);
-        // }, 500);
 
         try {
             const res = await SignOutUser();

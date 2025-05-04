@@ -1,6 +1,7 @@
-import { collection, deleteDoc, doc, getDoc, getDocs } from "firebase/firestore";
-import { auth, firestoreDB } from "../../FirebaseConfig";
-import { deleteUser } from "firebase/auth";
+import { collection, deleteDoc, doc, getDoc, getDocs, query, where } from "firebase/firestore";
+import { app, auth, firestoreDB } from "../../FirebaseConfig";
+import { getAuth } from "firebase/auth";
+import { getFunctions, httpsCallable } from "firebase/functions";
 
 // Users
 // Collection
@@ -83,14 +84,56 @@ export const DeleteUserFirebase = async (id) => {
 export const DeleteUserAccountFirebase = async (uid) => {
     try {
         const user = auth.currentUser;
+        console.log(user, uid);
 
-        console.log(auth, user, uid);
+        if (user.email !== "admin@example.com") {
+            throw new Error("Only admin can delete users");
+        }
+
+        // const userToDelete = await getUserByUid(uid);
+        // console.log(userToDelete);
         
+        // if (!userToDelete) {
+        //     throw new Error("User not found");
+        // }
+
+        const functions = getFunctions(app, "us-central1");
+        const deleteUserByUID = httpsCallable(functions, "deleteUserByUID");
+
+        const del= await deleteUserByUID({uid})
+        console.log("deleteUserByUID response:", del.data);
+
+
         // const res = await deleteUser();
         // console.log("Delete-User-Account++", res);
 
-        return user;
+        // return user;
+        return del.data;
     } catch (err) {
         console.error('Error-Delete-User-Account--', err);
     }
 }
+
+
+
+
+const getUserByUid = async (uid) => {
+    try {
+        const auth = getAuth();
+        console.log(auth);
+
+        const q = query(usersCollection, where("uid", "==", uid));
+        const querySnapshot = await getDocs(q);
+
+        if (!querySnapshot.empty) {
+            return {
+                uid: uid,
+                email: querySnapshot.docs[0].data().email,
+            };
+        }
+        return null;
+    } catch (err) {
+        console.error('Error getting user by UID:', err);
+        throw err;
+    }
+};

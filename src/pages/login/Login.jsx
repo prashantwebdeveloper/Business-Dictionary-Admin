@@ -58,7 +58,7 @@ const Login = () => {
                 setFormData(initialState);
 
                 localStorage.setItem("business-admin-token", resLogin.user.accessToken);
-                
+
                 navigate("/admin/dashboard");
             }
         }
@@ -76,6 +76,9 @@ const Login = () => {
             }
             else if (err?.code === "auth/invalid-credential") {
                 toast.error("Invalid email or password.");
+            }
+            else if (err?.code === "auth/not-admin") {
+                toast.error("Access denied. You are not authorized as an admin.");
             }
             else {
                 toast.error("An error occurred. Please try again later.");
@@ -149,7 +152,7 @@ const Login = () => {
                                                 zIndex: "999"
                                             }}
                                         >
-                                            {showpassword ? <FaRegEye size={20} /> : <FaRegEyeSlash size={20} />}
+                                            {showpassword ? <FaRegEyeSlash size={20} /> : <FaRegEye size={20} />}
                                         </span>
                                     </div>
                                 </div>

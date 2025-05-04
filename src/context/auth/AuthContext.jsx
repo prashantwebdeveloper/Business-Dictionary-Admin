@@ -3,6 +3,9 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase/FirebaseConfig";
 
+import { GetAdminFirebase } from "../../firebase/services/auth/admin/AdminServices";
+import { SignOutUser } from "../../firebase/services/auth/logout/LogoutServices";
+
 const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
@@ -15,9 +18,25 @@ export const AuthContextProvider = ({ children }) => {
         // console.log("currentUser-->", user);
 
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-            console.log("onAuthStateChanged++", currentUser);
+            console.log("onAuthStateChanged++", currentUser?.email, currentUser?.uid);
 
+            // if (currentUser) {
+            //     const res = await GetAdminFirebase(currentUser?.uid);
+            //     console.log("Res-Admin", res);
+
+            //     if (!res?.exists()) {
+            //         setCurrentUser(null);
+
+            //         const res = await SignOutUser();
+            //         console.log("Res-Logout++", res);
+
+            //         if (res?.success) {
+            //             localStorage.removeItem("business-admin-token");
+            //         }
+            //     } else {
             setCurrentUser(currentUser);
+            // }
+            // }
 
             setIsLoading(false);
         });

@@ -1,9 +1,14 @@
-import { collection, getDocs } from "firebase/firestore";
+import { collection, deleteDoc, doc, getDocs } from "firebase/firestore";
 import { firestoreDB } from "../../FirebaseConfig";
 
 // Subscription
 // Collection
 const subscriptionCollection = collection(firestoreDB, "subscription");
+
+// Doc
+const subscriptionDoc = (id) => {
+    return doc(firestoreDB, "subscription", id);
+}
 
 
 // Get
@@ -37,5 +42,18 @@ export const GetSubscriptionFirebase = async () => {
         }
     } catch (err) {
         console.error('Error-Get-Subscription--', err);
+    }
+}
+
+
+// Delete
+export const DeleteSubscriptionFirebase = async (id) => {
+    try {
+        const res = await deleteDoc(subscriptionDoc(id));
+        console.log("Delete-Subscription++", res);
+
+        return res;
+    } catch (err) {
+        console.error('Error-Delete-Subscription--', err);
     }
 }
