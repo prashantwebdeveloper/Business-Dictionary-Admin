@@ -6,6 +6,7 @@ import { FaEye, FaRegEye, FaRegEyeSlash } from 'react-icons/fa6';
 import Delete from '../../components/modal/delete/Delete';
 
 import { DeleteCategoryFirebase, GetCategoryFirebase } from '../../firebase/services/category/CategoryServices';
+import { DeleteCategoryImageKit } from '../../imageKit/services/category/CategoryServices';
 import { toast } from 'react-toastify';
 
 const modal = {
@@ -13,7 +14,8 @@ const modal = {
 }
 
 const initialState = {
-    id: null
+    categoryId: null,
+    imageFileId: null,
 }
 
 const Category = () => {
@@ -61,14 +63,20 @@ const Category = () => {
         setIsDeleteLoading(true);
 
         try {
-            const res = await DeleteCategoryFirebase(deleteCategory.id);
-            console.log("Res-Delete-Category++", res);
+            if (deleteCategory.imageFileId) {
+                const resDelImg = await DeleteCategoryImageKit(deleteCategory.imageFileId);
 
-            setDeleteCategory(initialState);
-            handleClose();
+                if (resDelImg?.$ResponseMetadata?.statusCode === 204) {
+                    const res = await DeleteCategoryFirebase(deleteCategory.categoryId);
+                    console.log("Res-Delete-Category++", res);
 
-            toast.success("category deleted successfully");
-            GetCategoryList();
+                    setDeleteCategory(initialState);
+                    handleClose();
+
+                    toast.success("category deleted successfully");
+                    GetCategoryList();
+                }
+            }
         }
         catch (err) {
             console.error("Error-Delete-Category", err);
@@ -143,7 +151,8 @@ const Category = () => {
                         onClick={() => {
                             setModalShow({ ...modalShow, deleteCategory: true });
                             setDeleteCategory({
-                                id: row?.id,
+                                categoryId: row?.id,
+                                imageFileId: row?.imageFileId,
                             });
                         }}
                     ></button>

@@ -88,6 +88,24 @@ const UserDetails = () => {
                             {/* </div>
                             </dissssv> */}
 
+                            <div className="col-lg-12 col-md-12 col-12 mb-2">
+                                <label htmlFor="image" className="form-label">
+                                    Image :
+                                </label>
+                                {formData.image && (
+                                    <div className="mb-2 mt-2">
+                                        <img
+                                            src={formData?.image}
+                                            alt="Image"
+                                            className="img-thumbnail img-fluid"
+                                            style={{
+                                                maxWidth: "150px", maxHeight: "150px"
+                                            }}
+                                        />
+                                    </div>
+                                )}
+                            </div>
+
                             <div className="col-12 mb-2">
                                 <label htmlFor="name" className="form-label">
                                     Name :
@@ -149,6 +167,36 @@ const UserDetails = () => {
                                         {showpassword ? <FaRegEyeSlash size={20} /> : <FaRegEye size={20} />}
                                     </span>
                                 </div>
+                            </div>
+
+                            <div className="col-12 mb-2">
+                                <label htmlFor="phone" className="form-label">
+                                    Phone :
+                                </label>
+                                <input
+                                    type="text"
+                                    name="phone"
+                                    id="phone"
+                                    className="form-control"
+                                    autoComplete='off'
+                                    value={formData?.phone || "-"}
+                                    readOnly
+                                />
+                            </div>
+
+                            <div className="col-12 mb-2">
+                                <label htmlFor="organizationName" className="form-label">
+                                    Organization Name :
+                                </label>
+                                <input
+                                    type="text"
+                                    name="organizationName"
+                                    id="organizationName"
+                                    className="form-control"
+                                    autoComplete='off'
+                                    value={formData?.organizationName || "-"}
+                                    readOnly
+                                />
                             </div>
                         </form>
 

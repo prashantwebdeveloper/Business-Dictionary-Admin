@@ -102,6 +102,23 @@ const User = () => {
             }
         },
         {
+            name: 'Image',
+            cell: (row) => (
+                <img
+                    src={row.image}
+                    alt="Image"
+                    className={`${row.image === null && 'rounded-circle'}`}
+                    style={{
+                        maxWidth: "60px",
+                        maxHeight: "60px",
+                        padding: '8px 0'
+                    }}
+                />
+            ),
+            maxWidth: "10%",
+            minWidth: "100px",
+        },
+        {
             name: 'Name',
             cell: (row) => row.name || "-",
         },
@@ -144,6 +161,10 @@ const User = () => {
             },
         },
         {
+            name: 'Organization',
+            cell: (row) => row.organizationName || "-",
+        },
+        {
             name: 'Created Date',
             cell: (row) => row.createdAt || "-",
         },
@@ -159,7 +180,7 @@ const User = () => {
                     >
                         <FaEye />
                     </button>
-                    <button type="button" className="btn btn-sm btn-square btn-neutral text-danger-hover ri-delete-bin-line"
+                    {/*<button type="button" className="btn btn-sm btn-square btn-neutral text-danger-hover ri-delete-bin-line"
                         onClick={() => {
                             setModalShow({ ...modalShow, deleteUser: true });
                             setDeleteUser({
@@ -167,7 +188,7 @@ const User = () => {
                                 uid: row?.uid
                             });
                         }}
-                    ></button>
+                    ></button>*/}
                 </div>
             ),
             width: '130px'
@@ -176,7 +197,7 @@ const User = () => {
 
 
     const filterUsers = usersList?.filter((i) => {
-        const searchstr = `${i.name} ${i.email} ${i.password} ${i.createdAt}`.toLowerCase();
+        const searchstr = `${i.name} ${i.email} ${i.password} ${i.organizationName} ${i.createdAt}`.toLowerCase();
 
         return searchstr.includes(search.toLowerCase());
     });
